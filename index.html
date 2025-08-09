@@ -1,316 +1,116 @@
-<!-- Folded Futures - Single-file static site (index.html)
-
-INSTRUCTIONS:
-1) Preview this file in the canvas. This is a complete static site (HTML/CSS/JS) with placeholders.
-2) To publish on GitHub Pages:
-   - Create a new GitHub repository named `foldedfutures` (or any name).
-   - Add this file as `index.html` in the repository root and push to GitHub.
-   - In GitHub repository settings -> Pages, set the source to the `main` branch root. Your site will be available at `https://<yourusername>.github.io/<repo>` or `https://<yourusername>.github.io/` if repo is named `<yourusername>.github.io`.
-3) Replace placeholder images in `/assets/` with your photos and update copy.
-4) Optional: Add a `CNAME` file for a custom domain later.
-
-FILES / ASSETS:
-- This file references images in `assets/` folder: `hero.jpg`, `thumb1.jpg`, `thumb2.jpg`, `thumb3.jpg`, `interview1.jpg`.
-  Upload real images to the repo at `/assets/` or edit the HTML to point to your hosted images.
-
-Accessibility & Privacy:
-- If you upload interviews containing children, ensure you have consent forms for publication and protect privacy as required.
-
--->
-
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Folded Futures — Crafting dreams with cardboard</title>
-  <meta name="description" content="Folded Futures documents a summer project where children designed and built their dream rooms using cardboard, clay and paper." />
-
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Merriweather:wght@300;400&display=swap" rel="stylesheet">
-
-  <style>
-    :root{
-      --bg:#fbfcf7;
-      --card:#ffffff;
-      --muted:#6b6b6b;
-      --accent:#7fb77e; /* soft green */
-      --accent-2:#cfe9d0;
-      --maxw:1100px;
-    }
-    *{box-sizing:border-box}
-    body{margin:0;font-family:Poppins,system-ui,Segoe UI,Roboto,Helvetica,Arial; background:var(--bg); color:#1b1b1b; -webkit-font-smoothing:antialiased;}
-    a{color:inherit}
-
-    /* NAV */
-    .nav{position:sticky;top:12px;z-index:30;display:flex;justify-content:center}
-    .nav .inner{width:94%;max-width:var(--maxw);display:flex;align-items:center;justify-content:space-between;padding:10px 18px;background:transparent;border-radius:14px}
-    .brand{display:flex;align-items:center;gap:12px}
-    .logo{width:44px;height:44px;border-radius:8px;background:linear-gradient(135deg,var(--accent),#9fd0a3);display:flex;align-items:center;justify-content:center;font-weight:700;color:white;box-shadow:0 6px 18px rgba(0,0,0,0.08)}
-    .brand h1{margin:0;font-size:16px}
-    .brand p{margin:0;font-size:12px;color:var(--muted)}
-    nav ul{list-style:none;display:flex;gap:18px;margin:0;padding:0}
-    nav a{padding:8px 12px;border-radius:8px;font-weight:600}
-    nav a:hover{background:rgba(127,183,126,0.12)}
-
-    /* HERO */
-    .hero{min-height:64vh;display:grid;align-items:center;padding:48px 18px}
-    .hero .wrap{width:100%;max-width:var(--maxw);margin:0 auto;display:grid;grid-template-columns:1fr 420px;gap:36px;align-items:center}
-    .hero h2{font-size:34px;margin:0 0 14px;line-height:1.02}
-    .hero p{margin:0 0 20px;color:var(--muted);font-size:16px}
-    .cta{display:inline-block;padding:10px 16px;border-radius:10px;background:linear-gradient(90deg,var(--accent),#6fb46f);color:white;font-weight:700;text-decoration:none}
-
-    .hero-art{position:relative;height:320px;border-radius:18px;overflow:hidden;box-shadow:0 22px 44px rgba(21,21,21,0.08);background:#e9f3ea}
-    .hero-art img{width:120%;height:120%;object-fit:cover;position:absolute;left:-10%;top:-10%;transform-origin:center}
-
-    /* PAPER-LIKE SECTION */
-    .paper{background:linear-gradient(180deg,rgba(255,255,255,0.9),rgba(255,255,255,0.95));padding:48px 18px}
-    .container{max-width:var(--maxw);margin:0 auto}
-    .card{background:var(--card);border-radius:14px;padding:18px;box-shadow:0 10px 30px rgba(18,18,18,0.05);}
-
-    /* MISSION */
-    .mission{display:grid;grid-template-columns:1fr 340px;gap:28px;align-items:start}
-    .mission .stat{font-family:Merriweather,serif;color:var(--muted);font-size:15px}
-
-    /* GALLERY */
-    .gallery-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin-top:18px}
-    .thumb{position:relative;border-radius:12px;overflow:hidden;background:#f6f6f6}
-    .thumb img{width:100%;height:220px;object-fit:cover;display:block;transition:transform .8s cubic-bezier(.2,.8,.2,1)}
-    .thumb:hover img{transform:scale(1.06) rotate(-0.6deg)}
-    .thumb figcaption{position:absolute;left:12px;bottom:12px;color:white;background:linear-gradient(90deg,rgba(0,0,0,0.28),rgba(0,0,0,0.12));padding:6px 10px;border-radius:8px;font-weight:600;font-size:13px}
-
-    /* INTERVIEWS */
-    .testi{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
-    .quote{padding:16px;border-radius:12px;background:linear-gradient(180deg,white,var(--accent-2));min-height:140px}
-    .quote p{margin:0;color:#153b11}
-
-    /* FOOTER */
-    footer{padding:28px 18px;color:var(--muted)}
-
-    /* Responsive */
-    @media (max-width:920px){
-      .hero .wrap{grid-template-columns:1fr}
-      .mission{grid-template-columns:1fr}
-    }
-
-    /* Simple 3D scroll transform: elements with .float will tilt/translate on scroll */
-    .float{transform-style:preserve-3d;will-change:transform}
-
-    /* Lightbox styles */
-    .lightbox{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,0.6);z-index:60}
-    .lightbox.open{display:flex}
-    .lightbox img{max-width:92%;max-height:86%;border-radius:8px;box-shadow:0 20px 60px rgba(0,0,0,0.4)}
-
-  </style>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Folded Futures</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            background-color: #fefefe;
+            color: #333;
+        }
+        header {
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            padding: 10px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        nav a {
+            margin-left: 20px;
+            text-decoration: none;
+            color: #333;
+            position: relative;
+        }
+        nav a::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: -4px;
+            width: 0;
+            height: 2px;
+            background: #6fcf97;
+            transition: width 0.3s;
+        }
+        nav a:hover::after {
+            width: 100%;
+        }
+        section {
+            padding: 100px 20px;
+        }
+        .hero {
+            height: 100vh;
+            background: linear-gradient(135deg, #a8edea, #fed6e3);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: #333;
+        }
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+        .gallery img {
+            width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+        .gallery img:hover {
+            transform: scale(1.03);
+        }
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+    </style>
 </head>
 <body>
+    <header>
+        <div class="logo">Folded Futures</div>
+        <nav>
+            <a href="#home">Home</a>
+            <a href="#pictures">Pictures</a>
+            <a href="#interviews">Interviews</a>
+        </nav>
+    </header>
 
-  <header class="nav">
-    <div class="inner">
-      <div class="brand">
-        <div class="logo">FF</div>
-        <div>
-          <h1>Folded Futures</h1>
-          <p style="font-size:12px;color:var(--muted);margin-top:4px">Crafting dreams with cardboard</p>
-        </div>
-      </div>
-      <nav>
-        <ul>
-          <li><a href="#home">Home</a></li>
-          <li><a href="#pictures">Pictures</a></li>
-          <li><a href="#interviews">Interviews</a></li>
-        </ul>
-      </nav>
-    </div>
-  </header>
-
-  <main>
-    <section id="home" class="hero">
-      <div class="wrap container">
-        <div>
-          <h2>Folded Futures</h2>
-          <p class="muted">This summer, we visited a public school and worked with underprivileged children to build their realistic and ideal dream rooms — using cardboard, glaze paper, clay and markers. This site documents their drawings, interviews, and the stories behind their creations.</p>
-          <a class="cta" href="#pictures">View Gallery</a>
-
-          <div style="height:24px"></div>
-
-          <div class="card" style="margin-top:18px">
-            <small style="color:var(--muted);">Featured</small>
-            <h3 style="margin:6px 0 0">"We imagined rooms with windows that never close"</h3>
-            <p style="color:var(--muted);font-size:14px;margin-top:8px">A short excerpt from one of the students' interviews. Their ideas were playful, heartfelt, and often surprisingly precise.</p>
-          </div>
-        </div>
-
-        <div class="hero-art float" data-depth="18">
-          <!-- Placeholder image; replace with your own hero photo at assets/hero.jpg -->
-          <img src="assets/hero.jpg" alt="Children working with cardboard" id="heroImg">
-        </div>
-      </div>
+    <section id="home" class="hero" data-aos="fade-up">
+        <h1>Crafting Dreams with Cardboard and Compassion</h1>
+        <p>This summer, underprivileged children built their ideal and realistic dream rooms using simple craft materials. Here are their stories.</p>
     </section>
 
-    <section class="paper">
-      <div class="container">
-        <div class="mission card">
-          <div style="display:flex;gap:20px;align-items:flex-start;">
-            <div style="flex:1">
-              <h3 style="margin-top:0">Our Mission</h3>
-              <p class="stat">Folded Futures documents creative expression and resilience. We provided materials (cardboard, glaze paper, clay, markers) and simple prompts so children could design model rooms — both realistic and ideal. Our goal is to share their art and stories to raise awareness and celebrate imagination.</p>
-            </div>
-            <div style="width:260px">
-              <small style="color:var(--muted)">Project details</small>
-              <ul style="padding-left:16px;margin-top:8px;color:var(--muted);">
-                <li>Location: Local public school</li>
-                <li>Materials: cardboard, clay, glaze paper, markers</li>
-                <li>Participants: Students (age groups vary)</li>
-              </ul>
-            </div>
-          </div>
+    <section id="pictures" style="background: #fff7e6;" data-aos="fade-up">
+        <h2>Gallery</h2>
+        <div class="gallery">
+            <img src="https://via.placeholder.com/400x300" alt="Project Image">
+            <img src="https://via.placeholder.com/400x300" alt="Project Image">
+            <img src="https://via.placeholder.com/400x300" alt="Project Image">
         </div>
-
-        <div style="height:28px"></div>
-
-        <h3 id="pictures">Pictures</h3>
-        <p style="color:var(--muted);margin-top:6px">A selection of moments from the workshops. Click any image to enlarge.</p>
-
-        <div class="gallery-grid" id="gallery">
-          <figure class="thumb card" tabindex="0">
-            <img src="assets/thumb1.jpg" alt="Student building model" loading="lazy">
-            <figcaption>Building furniture</figcaption>
-          </figure>
-
-          <figure class="thumb card" tabindex="0">
-            <img src="assets/thumb2.jpg" alt="Children showing drawings" loading="lazy">
-            <figcaption>Drafting ideas</figcaption>
-          </figure>
-
-          <figure class="thumb card" tabindex="0">
-            <img src="assets/thumb3.jpg" alt="Model rooms on display" loading="lazy">
-            <figcaption>Finished displays</figcaption>
-          </figure>
-
-          <figure class="thumb card" tabindex="0">
-            <img src="assets/thumb4.jpg" alt="Close-up of clay modelling" loading="lazy">
-            <figcaption>Clay details</figcaption>
-          </figure>
-        </div>
-
-        <!-- Lightbox -->
-        <div id="lightbox" class="lightbox" role="dialog" aria-hidden="true">
-          <img src="" alt="enlarged image" id="lightboxImg">
-        </div>
-
-        <div style="height:36px"></div>
-
-        <h3 id="interviews">Interviews & Testimonials</h3>
-        <p style="color:var(--muted);margin-top:6px">Selected excerpts from conversations with students and volunteers.</p>
-
-        <div class="testi" style="margin-top:12px">
-          <div class="quote card">
-            <strong>"My house would have a big window."</strong>
-            <p style="margin-top:10px;color:var(--muted)">— A student, age 11. "I drew a bed and a window where the sun comes in every morning."</p>
-          </div>
-
-          <div class="quote card">
-            <strong>"I made a bookshelf from boxes."</strong>
-            <p style="margin-top:10px;color:var(--muted)">— Student, age 12. "I like to read but there aren't many books at home."</p>
-          </div>
-
-          <div class="quote card">
-            <strong>"We want to make rooms that feel safe."</strong>
-            <p style="margin-top:10px;color:var(--muted)">— Volunteer. "The kids thought about colors and small things that make a room peaceful."</p>
-          </div>
-        </div>
-
-        <div style="height:20px"></div>
-
-        <div class="card" style="display:flex;gap:12px;align-items:center;justify-content:space-between">
-          <div>
-            <small style="color:var(--muted)">Share a story</small>
-            <p style="margin:6px 0 0">If you were involved and want to share audio or a longer testimonial, email us (replace with your email) or upload via the project repo.</p>
-          </div>
-          <div>
-            <a class="cta" href="#">Contact / Donate</a>
-          </div>
-        </div>
-
-      </div>
     </section>
 
-  </main>
+    <section id="interviews" style="background: #e8faff;" data-aos="fade-up">
+        <h2>Interviews & Testimonials</h2>
+        <p>Coming soon: personal stories and voices from the children themselves.</p>
+    </section>
 
-  <footer>
-    <div class="container" style="display:flex;justify-content:space-between;align-items:center;gap:12px">
-      <div>
-        <strong>Folded Futures</strong>
-        <div style="font-size:13px;color:var(--muted)">Made with care. Photos & interviews are published with consent.</div>
-      </div>
-      <div style="font-size:13px;color:var(--muted)">© <span id="year"></span> Folded Futures</div>
-    </div>
-  </footer>
-
-  <script>
-    // Small script to setup year
-    document.getElementById('year').textContent = new Date().getFullYear();
-
-    // Lightbox behavior for gallery
-    const thumbs = document.querySelectorAll('.thumb img');
-    const lightbox = document.getElementById('lightbox');
-    const lightboxImg = document.getElementById('lightboxImg');
-
-    thumbs.forEach(img => img.addEventListener('click', (e)=>{
-      lightboxImg.src = img.src;
-      lightboxImg.alt = img.alt;
-      lightbox.classList.add('open');
-      lightbox.setAttribute('aria-hidden','false');
-    }));
-
-    lightbox.addEventListener('click', ()=>{
-      lightbox.classList.remove('open');
-      lightbox.setAttribute('aria-hidden','true');
-      lightboxImg.src = '';
-    });
-
-    // 3D subtle parallax on scroll for elements with .float
-    // Moves element slightly based on scroll position. Lightweight and GPU-friendly.
-    const floats = document.querySelectorAll('.float');
-    function onScroll3D(){
-      const sc = window.scrollY;
-      floats.forEach(el=>{
-        const depth = parseFloat(el.dataset.depth||10);
-        const rect = el.getBoundingClientRect();
-        const mid = rect.top + rect.height/2 - window.innerHeight/2;
-        const t = Math.max(-1, Math.min(1, -mid/(window.innerHeight/2)));
-        const tx = t * depth; // translateX
-        const ty = t * (depth*0.2); // translateY
-        const rot = t * (depth*0.08); // rotation
-        el.style.transform = `translate3d(${tx}px, ${ty}px, 0) rotate(${rot}deg)`;
-      });
-    }
-    window.addEventListener('scroll', onScroll3D, {passive:true});
-    window.addEventListener('resize', onScroll3D);
-    onScroll3D();
-
-    // Smooth scrolling for nav links
-    document.querySelectorAll('a[href^="#"]').forEach(a=>{
-      a.addEventListener('click', (e)=>{
-        e.preventDefault();
-        const id = a.getAttribute('href').slice(1);
-        const el = document.getElementById(id);
-        if(el) el.scrollIntoView({behavior:'smooth',block:'start'});
-      });
-    });
-
-    // Keyboard accessibility for lightbox (escape to close)
-    window.addEventListener('keydown', (e)=>{
-      if(e.key === 'Escape'){
-        if(lightbox.classList.contains('open')){
-          lightbox.classList.remove('open');
-          lightbox.setAttribute('aria-hidden','true');
-        }
-      }
-    });
-
-  </script>
-
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({ duration: 800, once: true });
+    </script>
 </body>
 </html>
